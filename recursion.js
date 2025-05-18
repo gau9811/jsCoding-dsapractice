@@ -20,4 +20,4 @@ function someofDigits(...num) {
 
   return helperMethod(t, num.join("").split("").map(Number));
 }
-console.log(someofDigits(1234)); // 15
+console.log(someofDigits(123456789)); //
