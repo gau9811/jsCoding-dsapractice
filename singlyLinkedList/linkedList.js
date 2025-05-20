@@ -44,6 +44,29 @@ class SinglyLinkedList {
     this.size--
     return this
   }
+  unshift(data){
+    let newNode = new Node(data);
+    if(!this.head){
+      this.head = newNode;
+      this.tail = newNode;
+    }
+  }
+  get(index){
+    if(index < 0 || index >= this.size) return null;
+    let current = this.head;
+    for(let i = 0; i < index; i++){
+      current = current.next;
+    }
+    return current;
+  }
+  set(index, data){
+    const node = this.get(index);
+    if(node){
+      node.data = data;
+      return true;
+    }
+    return false;
+  }
 }
 
 const list = new SinglyLinkedList();
