@@ -72,19 +72,66 @@ class SinglyLinkedList {
     if (!this.head) return null;
     let slow = this.head;
     let fast = this.head;
+    let inc = 0;
     while (fast?.next) {
       slow = slow.next;
       fast = fast.next.next;
     }
     return slow.data;
   }
+  reverse() {
+    if (!this.head) return null;
+    let current = this.head;
+    let prev = null;
+    let next = null;
+    while (current) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    this.head = prev;
+    return this.head;
+  }
+
+  palindrome() {
+    if (!this.head) return null;
+    let slow = this.head;
+    let fast = this.head;
+    let newSlow = this.head;
+    let currStr = [];
+    while (fast?.next) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+    let middle = Math.floor(this.size / 2);
+    let i = 0;
+
+    while (i <= middle) {
+      currStr.push(newSlow.data);
+      newSlow = newSlow.next;
+      i++;
+    }
+
+    while (slow?.data) {
+      let str = currStr.pop();
+      if (slow.data !== str) {
+        return false;
+      }
+      slow = slow.next;
+    }
+    return true;
+  }
 }
 
 const list = new SinglyLinkedList();
-list.push(1);
-list.push(2);
-list.push(3);
-list.push(4);
-list.push(5);
+list.push("h");
+list.push("e");
+list.push("l");
+list.push("l");
+list.push("o");
+// list.push("a");
+// list.push("r");
+// list.push(1);
 // list.pop();
-console.log(list.middle());
+console.log(list.palindrome());
