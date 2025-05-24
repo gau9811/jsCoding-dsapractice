@@ -254,18 +254,107 @@ class SinglyLinkedList {
 
     return newList;
   }
+
+  findIntersection() {
+    if (!this.head || !this.head1) return null;
+    if (!this.head1) return null;
+    if (!this.head) return null;
+    let current1 = this.head;
+    let current2 = this.head1;
+    while (current1.data && current2.data) {
+      if (current1 === current2) {
+        return current1;
+      } else if (current1.data < current2.data) {
+        current1 = current1?.next;
+      } else {
+        current2 = current2?.next;
+      }
+    }
+  }
+
+  swapNodes(head) {
+    let current = this.head;
+    let prev = null;
+    let next = null;
+    while (current && current.next) {
+      next = current.next;
+      current.next = next.next;
+      next.next = current;
+      if (prev) {
+        prev.next = next;
+        console.log(prev.data, next.data);
+      }
+      if (!prev) {
+        this.head = next;
+      }
+      prev = current;
+      current = current.next;
+    }
+
+    return this.getlist();
+  }
+
+  detectcycle() {
+    if (!this.head) return false;
+    let slow = this.head;
+    let fast = this.head;
+    while (fast && fast.next) {
+      slow = slow.next;
+      fast = fast.next.next;
+      if (slow === fast) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  removedups() {
+    if (!this.head) return null;
+    let current = this.head;
+    let seen = new Set();
+    while (current) {
+      if (seen.has(current.next.data)) {
+        current = current.next.next; // Remove duplicate
+      } else {
+        seen.add(current.data);
+        current = current.next;
+      }
+    }
+    let newList = new SinglyLinkedList();
+    seen.forEach((data) => {
+      newList.push(data);
+    });
+    return newList.getlist();
+  }
+
+  partitionaroundX(x) {
+    if (!this.head) return null;
+
+    let current = this.head;
+    let lessThanX = new SinglyLinkedList();
+    let greaterThanX = new SinglyLinkedList();
+    while (current) {
+      if (current.data < x) {
+        lessThanX.push(current.data);
+      } else {
+        greaterThanX.push(current.data);
+      }
+      current = current.next;
+    }
+
+    lessThanX.tail.next = greaterThanX.head;
+    return lessThanX.getlist();
+  }
 }
 
 const list = new SinglyLinkedList();
 
 list.push(1);
+list.push(4);
 list.push(3);
+list.push(2);
 list.push(5);
-list.push(7);
+list.push(2);
 
-list.push1(2);
-list.push1(4);
-list.push1(6);
-list.push1(8);
-
-console.log(list.addTwoNumber());
+console.log(list.partitionaroundX(3));
