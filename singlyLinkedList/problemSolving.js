@@ -96,17 +96,23 @@ class SinglyLinkedList {
   }
   reverse() {
     if (!this.head) return null;
+
     let current = this.head;
     let prev = null;
     let next = null;
+
+    this.tail = this.head; // the old head will become the new tail
+
     while (current) {
-      next = current.next;
-      current.next = prev;
-      prev = current;
-      current = next;
+      next = current.next; // store next node
+      current.next = prev; // reverse the link
+      prev = current; // move prev forward
+      current = next; // move current forward
     }
-    this.head = prev;
-    return this.head;
+
+    this.head = prev; // update head to the new front of the list
+
+    return this.getlist();
   }
 
   palindrome() {
@@ -184,33 +190,33 @@ class SinglyLinkedList {
     return this.getlist();
   }
 
-  mergeTwoSortedList() {
-    if (!this.head || !this.head1) return null;
-    let current1 = this.head;
-    let current2 = this.head1;
-    let newList = new SinglyLinkedList();
-    while (current1 && current2) {
-      if (current1.data < current2.data) {
-        newList.push(current1.data);
-        current1 = current1.next;
-      } else {
-        newList.push(current2.data);
-        current2 = current2.next;
-      }
-    }
+  // mergeTwoSortedList() {
+  //   if (!this.head || !this.head1) return null;
+  //   let current1 = this.head;
+  //   let current2 = this.head1;
+  //   let newList = new SinglyLinkedList();
+  //   while (current1 && current2) {
+  //     if (current1.data < current2.data) {
+  //       newList.push(current1.data);
+  //       current1 = current1.next;
+  //     } else {
+  //       newList.push(current2.data);
+  //       current2 = current2.next;
+  //     }
+  //   }
 
-    while (current1) {
-      newList.push(current1.data);
-      current1 = current1.next;
-    }
+  //   while (current1) {
+  //     newList.push(current1.data);
+  //     current1 = current1.next;
+  //   }
 
-    // Add remaining nodes from current2
-    while (current2) {
-      newList.push(current2.data);
-      current2 = current2.next;
-    }
-    return newList;
-  }
+  //   // Add remaining nodes from current2
+  //   while (current2) {
+  //     newList.push(current2.data);
+  //     current2 = current2.next;
+  //   }
+  //   return newList;
+  // }
 
   addTwoNumber() {
     let s1 = "";
@@ -330,7 +336,6 @@ class SinglyLinkedList {
 
   partitionaroundX(x) {
     if (!this.head) return null;
-
     let current = this.head;
     let lessThanX = new SinglyLinkedList();
     let greaterThanX = new SinglyLinkedList();
@@ -346,15 +351,40 @@ class SinglyLinkedList {
     lessThanX.tail.next = greaterThanX.head;
     return lessThanX.getlist();
   }
+
+  mergeTwoLinkedList() {
+    let h1 = this.head;
+    let h2 = this.head1;
+    let dummy = new Node();
+    let current = dummy;
+
+    while (h1 && h2) {
+      if (h1.data < h2.data) {
+        current.next = h1;
+        h1 = h1.next;
+      } else {
+        current.next = h2;
+        h2 = h2.next;
+      }
+      current = current.next;
+    }
+
+    // Append any remaining nodes
+    if (h1 !== null) current.next = h1;
+    if (h2 !== null) current.next = h2;
+
+    // Print the merged list
+    return dummy.next;
+  }
 }
 
 const list = new SinglyLinkedList();
 
 list.push(1);
+list.push(2);
 list.push(4);
-list.push(3);
-list.push(2);
-list.push(5);
-list.push(2);
+list.push1(1);
+list.push1(3);
+list.push1(5);
 
-console.log(list.partitionaroundX(3));
+console.log(list.mergeTwoLinkedList());
