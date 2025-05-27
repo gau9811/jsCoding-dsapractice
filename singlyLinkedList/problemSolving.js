@@ -140,23 +140,23 @@ class SinglyLinkedList {
     }
     return true;
   }
-  rotate(ind) {
-    if (ind > this.size) return null;
-    let firstNode = this.head;
-    let remainingList = this.head.next;
+  // rotate(ind) {
+  //   if (ind > this.size) return null;
+  //   let firstNode = this.head;
+  //   let remainingList = this.head.next;
 
-    let currentH = 0;
-    while (currentH < ind) {
-      firstNode.next = remainingList;
-      this.tail.next = firstNode;
-      firstNode.next = null;
-      this.head = remainingList;
-      this.tail = firstNode;
-      firstNode = this.head;
-      remainingList = this.head.next;
-      currentH++;
-    }
-  }
+  //   let currentH = 0;
+  //   while (currentH < ind) {
+  //     firstNode.next = remainingList;
+  //     this.tail.next = firstNode;
+  //     firstNode.next = null;
+  //     this.head = remainingList;
+  //     this.tail = firstNode;
+  //     firstNode = this.head;
+  //     remainingList = this.head.next;
+  //     currentH++;
+  //   }
+  // }
 
   getlist() {
     let current = this.head;
@@ -376,15 +376,36 @@ class SinglyLinkedList {
     // Print the merged list
     return dummy.next;
   }
+
+  rotateList(head, k) {
+    if (k === 0 || head === null) {
+      return head;
+    }
+
+    // Rotate the list by k nodes
+    for (let i = 0; i < k; ++i) {
+      let curr = head;
+      while (curr.next !== null) {
+        curr = curr.next;
+      }
+
+      // Move the first node to the last
+      curr.next = head;
+      curr = curr.next;
+      head = head.next;
+      curr.next = null;
+    }
+    return head;
+  }
 }
 
 const list = new SinglyLinkedList();
 
 list.push(1);
 list.push(2);
+list.push(3);
 list.push(4);
-list.push1(1);
-list.push1(3);
-list.push1(5);
+list.push(5);
 
-console.log(list.mergeTwoLinkedList());
+console.log(list.rotateList(list, 2));
+console.log(list);
