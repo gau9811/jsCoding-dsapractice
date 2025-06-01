@@ -94,25 +94,25 @@ class SinglyLinkedList {
     }
     return slow.data;
   }
-  reverse() {
-    if (!this.head) return null;
-
-    let current = this.head;
-    let prev = null;
-    let next = null;
-
-    this.tail = this.head; // the old head will become the new tail
-
-    while (current) {
-      next = current.next; // store next node
-      current.next = prev; // reverse the link
-      prev = current; // move prev forward
-      current = next; // move current forward
+  reverse(head) {
+    let listOfNode = [];
+    listOfNode.push(head);
+    while (head.next) {
+      listOfNode.push(head.next);
+      head = head.next;
     }
 
-    this.head = prev; // update head to the new front of the list
-
-    return this.getlist();
+    let i = 0;
+    let j = listOfNode.length - 1;
+    while (i < j) {
+      listOfNode[i].next = listOfNode[j];
+      i++;
+      if (i === j) break;
+      listOfNode[j].next = listOfNode[i];
+      j--;
+    }
+    listOfNode[i].next = null;
+    return head;
   }
 
   palindrome() {
@@ -397,6 +397,51 @@ class SinglyLinkedList {
     }
     return head;
   }
+
+  findTheMax(head) {
+    let max = 0;
+    let current = head;
+    while (current?.next) {
+      // console.log(current.data);
+      current = current.next;
+      max = Math.max(max, current.data);
+    }
+    return max;
+  }
+
+  sumOfAll(head) {
+    let sum = 0;
+    while (head.next) {
+      head = head.next;
+      sum += head.data;
+    }
+    return sum;
+  }
+
+  insertSorted(head, k) {
+    let newNode = new Node(k);
+
+    // Case 1: Insert at the beginning or if list is empty
+    if (!head || k < head.data) {
+      newNode.next = head;
+      return newNode;
+    }
+
+    let prev = head;
+    let current = head.next;
+
+    // Traverse to find the correct position
+    while (current && current.data < k) {
+      prev = current;
+      current = current.next;
+    }
+
+    // Insert newNode between prev and current
+    prev.next = newNode;
+    newNode.next = current;
+
+    return head;
+  }
 }
 
 const list = new SinglyLinkedList();
@@ -407,5 +452,5 @@ list.push(3);
 list.push(4);
 list.push(5);
 
-console.log(list.rotateList(list, 2));
-console.log(list);
+console.log(list.reverse(list.head));
+// console.log(list);
