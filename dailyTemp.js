@@ -1,15 +1,19 @@
-function dailytemp(temperatures) {
-  const res = new Array(temperatures.length).fill(0);
-  const stack = []; // pair: [temp, index]
-
-  for (let i = 0; i < temperatures.length; i++) {
-    const t = temperatures[i];
-    while (stack.length > 0 && t > stack[stack.length - 1][0]) {
-      const [stackT, stackInd] = stack.pop();
-      res[stackInd] = i - stackInd;
+function dailyTemperatures(temperatures) {
+  let stack = [];
+  let count = 0;
+  let i = 0;
+  let j = 1;
+  while (i <= temperatures.length) {
+    while (j <= temperatures.length) {
+        if(temperatures[j] > temperatures[i]){
+            i++
+            j = i
+            break
+        }else{
+            stack.push(temperatures[j])
+        }
+      j++ 
     }
-    stack.push([t, i]);
   }
-  return res;
 }
-console.log(dailytemp([30, 38, 30, 36, 35, 40, 28]));
+console.log(dailyTemperatures([30, 38, 30, 36, 35, 40, 28]));
