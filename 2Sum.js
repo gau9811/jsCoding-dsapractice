@@ -1,19 +1,12 @@
-function twoSum(numbers, target) {
-  let num = numbers.sort((a, b) => a - b);
-  let i = 0;
-  let j = num.length - 1;
-  let sum = 0;
-  while (i < j) {
-    sum = num[i] + num[j];
-    if (sum === target) {
-      return [i++, j++];
+let twoSum = (nums, target) => {
+  let obj = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    let diff = target - nums[i];
+    if (obj.hasOwnProperty(diff)) {
+      return [obj[diff], i]; // return indices
     }
-    if (sum > target) {
-      j--;
-    }
-    if (sum < target) {
-      i++;
-    }
+    obj[nums[i]] = i;
   }
-}
+};
 console.log(twoSum([3, 2, 4], 6));
