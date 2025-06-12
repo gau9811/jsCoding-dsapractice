@@ -6,7 +6,6 @@ function maxProfit(prices) {
     if (prices[right] > prices[left]) {
       let maxProfit = prices[right] - prices[left];
       profit = Math.max(profit, maxProfit);
-      // console.log(maxProfit);
     } else {
       left = right;
     }

@@ -1,5 +1,5 @@
 function minLow(nums, k) {
-     if (nums.length < k) return null;
+  if (nums.length < k) return null;
   let total = 0;
   let max = 0;
   for (let i = 0; i < k; i++) {
@@ -12,6 +12,6 @@ function minLow(nums, k) {
     max = Math.min(max, total);
   }
 
- return max
+  return max;
 }
 console.log(minLow([9, 4, 1, 7], 2));

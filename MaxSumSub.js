@@ -4,7 +4,6 @@ function maxSubSub(nums, k) {
   for (let i = 0; i < k; i++) {
     total += nums[i];
   }
-
   for (let i = k; i < nums.length; i++) {
     total = total - nums[i - k] + nums[i];
     currentMax = Math.min(total, currentMax);
