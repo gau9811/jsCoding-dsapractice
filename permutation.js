@@ -11,8 +11,7 @@ function checkInclusion(s1, s2) {
   }
 
   for (let right = 0; right < s2.length; right++) {
-    while (Object.keys(set).length && set[s2[right]]) {
-      console.log(set);
+    while (Object.keys(set).length) {
       set[s2[left]]--;
       if (set[s2[left]] === 0) delete set[s2[left]];
     }
@@ -22,3 +21,4 @@ function checkInclusion(s1, s2) {
 }
 
 console.log(checkInclusion("abc", "lecaabee"));
+// Max Consecutive Ones III
