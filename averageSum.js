@@ -6,15 +6,15 @@ function sumTarget(array, k, threshold) {
     total += array[i];
   }
 
-   if (total /  k >= threshold) {
-      count++;
-    }
+  if (total / k >= threshold) {
+    count++;
+  }
   for (let i = k; i < array.length; i++) {
-    total = total - array[i-k] + array[i] 
-    if (total /  k >= threshold) {
+    total = total - array[i - k] + array[i];
+    if (total / k >= threshold) {
       count++;
     }
   }
-  return count
+  return count;
 }
-console.log(sumTarget([11,13,17,23,29,31,7,5,2,3], 3, 5));
+console.log(sumTarget([11, 13, 17, 23, 29, 31, 7, 5, 2, 3], 3, 5));
